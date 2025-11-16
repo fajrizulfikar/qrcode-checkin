@@ -1,1 +1,0 @@
-// scripts/generate-qr-code.js
