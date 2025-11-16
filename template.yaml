@@ -1,1 +1,59 @@
-# template.yaml
+AWSTemplateFormatVersion: "2010-09-09"
+Transform: AWS::Serverless-2016-10-31
+Description: Event Check-in System with QR Codes
+
+Globals:
+  Function:
+    Timeout: 10
+    Runtime: nodejs18.x
+    Environment:
+      Variables:
+        TABLE_NAME: !Ref RegistrantsTable
+
+Resources:
+  # DynamoDB Table
+  RegistrantsTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: event_registrants
+      BillingMode: PAY_PER_REQUEST
+      AttributeDefinitions:
+        - AttributeName: email
+          AttributeType: S
+        - AttributeName: token
+          AttributeType: S
+      KeySchema:
+        - AttributeName: email
+          KeyType: HASH
+      GlobalSecondaryIndexes:
+        - IndexName: idx_token
+          KeySchema:
+            - AttributeName: token
+              KeyType: HASH
+          Projection:
+            ProjectionType: ALL
+
+  # Check-in Lambda Function
+  CheckInFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: src/
+      Handler: handlers/checkin.handler
+      Policies:
+        - DynamoDBCrudPolicy:
+            TableName: !Ref RegistrantsTable
+      Events:
+        CheckIn:
+          Type: Api
+          Properties:
+            Path: /checkin
+            Method: get
+
+Outputs:
+  ApiUrl:
+    Description: "API Gateway endpoint URL"
+    Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod"
+
+  TableName:
+    Description: "DynamoDB table name"
+    Value: !Ref RegistrantsTable
