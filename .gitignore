@@ -1,1 +1,19 @@
 node_modules
+
+# AWS SAM
+.aws-sam/
+samconfig.toml
+
+# Environment variables
+.env
+.env.local
+
+# Logs
+*.log
+
+# Generated files
+scripts/registrants.json
+qr-codes/
+
+# OS files
+.DS_Store
