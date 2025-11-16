@@ -12,6 +12,8 @@
   "author": "",
   "license": "GPL-3.0",
   "dependencies": {
+    "@aws-sdk/client-dynamodb": "^3.932.0",
+    "@aws-sdk/lib-dynamodb": "^3.932.0",
     "qrcode": "^1.5.4",
     "uuid": "^13.0.0"
   },
