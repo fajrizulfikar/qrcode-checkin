@@ -1,0 +1,21 @@
+{
+  "name": "qrcode-checkin",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "deploy": "sam build && sam deploy --guided",
+    "seed": "node scripts/seed-registrants.js",
+    "generate-qr": "node scripts/generate-qr-codes.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "GPL-3.0",
+  "dependencies": {
+    "qrcode": "^1.5.4",
+    "uuid": "^13.0.0"
+  },
+  "engines": {
+    "node": ">=18.x"
+  }
+}
