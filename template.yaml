@@ -5,7 +5,7 @@ Description: Event Check-in System with QR Codes
 Globals:
   Function:
     Timeout: 10
-    Runtime: nodejs18.x
+    Runtime: nodejs22.x
     Environment:
       Variables:
         TABLE_NAME: !Ref RegistrantsTable
